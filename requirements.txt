@@ -5,4 +5,5 @@ langdetect==1.0.9
 gTTS==2.3.0
 nltk==3.8.1
 pydub==0.25.1
-tamil==0.5
+tamil==0.3
+
