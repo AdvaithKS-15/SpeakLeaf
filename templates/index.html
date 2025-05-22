@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>SpeakLeaf – Listen to Your Docs</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <script src="{{ url_for('static', filename='player.js') }}" defer></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div id="loadingOverlay">
+        <div class="loader"></div>
+        <p>Hold on... Converting your document to audio 🎧</p>
+    </div>
+
+    <header>
+        <h1><span class="brand">SpeakLeaf</span> – Listen to Your Docs</h1>
+    </header>
+
+    <main>
+        <form method="POST" enctype="multipart/form-data" onsubmit="showLoading()">
+            <input type="file" name="file" id="fileUpload" required>
+            <button type="submit" class="upload-btn">🎶 Convert & Play</button>
+        </form>
+
+        {% if audio_file %}
+        <div class="glass player-container">
+            <audio id="audioPlayer" src="{{ audio_file }}"></audio>
+            <div class="controls">
+                <button onclick="togglePlay()" id="playPauseBtn">▶️</button>
+                <input type="range" id="progressBar" value="0" max="100">
+            </div>
+            <div id="lyricsContainer">
+                <p id="activeSentence">Loading transcript...</p>
+            </div>
+        </div>
+        {% endif %}
+    </main>
+
+    <footer>
+        <p>&copy; 2025 SpeakLeaf | Built with ❤️ for productivity</p>
+    </footer>
+
+    <script>
+        function showLoading() {
+            document.getElementById('loadingOverlay').style.display = 'flex';
+        }
+    </script>
+</body>
+</html>
