@@ -6,6 +6,9 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
     <script src="{{ url_for('static', filename='player.js') }}" defer></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        
+    </style>
 </head>
 <body>
     <div id="loadingOverlay">
@@ -31,7 +34,10 @@
                 <input type="range" id="progressBar" value="0" max="100">
             </div>
             <div id="lyricsContainer">
-                <p id="activeSentence">Loading transcript...</p>
+                <p id="activeSentence" class="clamp-text">
+                    This is a long transcript sentence that will be truncated initially for better readability. Click "Show More" to expand it fully and read everything that was converted from your uploaded document.
+                </p>
+                <button onclick="toggleText()" id="toggleBtn">Show More</button>
             </div>
         </div>
         {% endif %}
@@ -44,6 +50,19 @@
     <script>
         function showLoading() {
             document.getElementById('loadingOverlay').style.display = 'flex';
+        }
+
+        function toggleText() {
+            const text = document.getElementById('activeSentence');
+            const btn = document.getElementById('toggleBtn');
+
+            if (text.classList.contains('expanded')) {
+                text.classList.remove('expanded');
+                btn.innerText = "Show More";
+            } else {
+                text.classList.add('expanded');
+                btn.innerText = "Show Less";
+            }
         }
     </script>
 </body>
